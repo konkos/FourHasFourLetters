@@ -1,13 +1,30 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+// TODO: 30/7/2020 Calculate shortest and longest Chain
 public class MattParker {
     private Map<Integer,String> numbers;
-    private final int LIMIT =  70;
+    public static final int LIMIT =  99;//TESTED UP TO THIS NUMBER
+    private Map<Integer,Integer> startPointHopsToMap;
+    private List<Integer> pathList;
+    private List<List<Integer>> poolOfPathsForEveryNumber;
 
     public MattParker(){
         numbers = new HashMap<>();
+        pathList = new ArrayList<>();
+        poolOfPathsForEveryNumber =new ArrayList<>();
         //Manually create the Basic Numbers
+        initializeMap();
+
+        //Assemble The Rest Using The Basic Numbers
+        for(int i = 13; i < LIMIT; i++){
+            numbers.put(i, convertIntToWord(i));
+        }
+    }
+
+    private void initializeMap() {
         numbers.put(1, "ενα");
         numbers.put(2, "δυο");
         numbers.put(3, "τρια");
@@ -20,7 +37,7 @@ public class MattParker {
         numbers.put(10, "δεκα");
         numbers.put(11, "εντεκα");
         numbers.put(12, "δωδεκα");
-        
+
         numbers.put(20, "εικοσι");
         numbers.put(30, "τριαντα");
         numbers.put(40, "σαραντα");
@@ -30,16 +47,16 @@ public class MattParker {
         numbers.put(80, "ογδοντα");
         numbers.put(90, "ενενηντα");
         numbers.put(100, "εκατο");
-        
-        //Assemble The Rest Using The Basic Numbers
-        for(int i = 13; i < LIMIT; i++){
-            numbers.put(i, convertIntToWord(i));
-        }
+        //TODO ADD HUNDREDS AND THOUSANDS
     }
 
     public Map<Integer, String> getMap(){
         return numbers;
     }
+
+    public List<Integer> getPathList() {return pathList;}
+
+    public List<List<Integer>> getPoolOfPathsForEveryNumber() {return poolOfPathsForEveryNumber;}
 
     public String convertIntToWord(int number){
         String tensString= "", unitsString = "";
@@ -48,7 +65,6 @@ public class MattParker {
 
         if(number < 12)
             return null;
-
 
         if(number > 12 && number < 100){
             tensInt = number / 10;
@@ -98,4 +114,26 @@ public class MattParker {
         }
         return tensString.concat(unitsString);
     }
+
+    private int calculateHop(int pos){
+        String string = numbers.get(pos);
+        return string.length();
+    }
+
+    public void calculateChain(int f) {
+        int pos, hop;
+        //for(int i=1; i<MattParker.LIMIT; i++){
+            pos = f;
+            hop = calculateHop(pos);
+            do{
+                pathList.add(hop);
+                hop = calculateHop(hop);
+            }while(!pathList.contains(hop));
+            System.out.println(pos + " " + "List: " + pathList);
+            poolOfPathsForEveryNumber.add(pathList);
+//            startPointHopsToMap.put(pos,hop);
+        //}
+    }
+
+
 }

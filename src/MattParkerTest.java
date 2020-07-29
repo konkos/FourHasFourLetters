@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class MattParkerTest {
     MattParker mattParker;
@@ -10,9 +12,10 @@ class MattParkerTest {
         mattParker = new MattParker();
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void intToString() {
-        assertEquals( null,mattParker.convertIntToWord(10));
+        assertNull(mattParker.convertIntToWord(10));
+
         assertEquals( mattParker.convertIntToWord(13),"δεκατρια");
         assertEquals("δεκατεσσερα", mattParker.convertIntToWord(14));
         assertEquals("δεκαπεντε",mattParker.convertIntToWord(15));
@@ -45,5 +48,6 @@ class MattParkerTest {
 
         assertEquals("ενενηντα",mattParker.convertIntToWord(90));
         assertEquals("ενενηνταπεντε",mattParker.convertIntToWord(95));
+        assertEquals("ενενηνταεννια",mattParker.convertIntToWord(99));
     }
 }
