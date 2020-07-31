@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -5,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class MattParkerTest {
-    MattParker mattParker;
+    static MattParker mattParker;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUp() {
         mattParker = new MattParker();
     }
 
@@ -16,16 +18,16 @@ class MattParkerTest {
     void intToString() {
         assertNull(mattParker.convertIntToWord(10));
 
-        assertEquals( mattParker.convertIntToWord(13),"δεκατρια");
+        assertEquals("δεκατρια", mattParker.convertIntToWord(13));
         assertEquals("δεκατεσσερα", mattParker.convertIntToWord(14));
         assertEquals("δεκαπεντε",mattParker.convertIntToWord(15));
-        assertEquals( "δεκαεξι",mattParker.convertIntToWord(16));
+        assertEquals("δεκαεξι",mattParker.convertIntToWord(16));
         assertEquals("δεκαεφτα", mattParker.convertIntToWord(17));
         assertEquals("δεκαοχτω",mattParker.convertIntToWord(18));
         assertEquals("δεκαεννια",mattParker.convertIntToWord(19));
 
-        assertEquals( "εικοσι",mattParker.convertIntToWord(20));
-        assertEquals( "εικοσιενα",mattParker.convertIntToWord(21));
+        assertEquals("εικοσι",mattParker.convertIntToWord(20));
+        assertEquals("εικοσιενα",mattParker.convertIntToWord(21));
         assertEquals("εικοσιεννια",mattParker.convertIntToWord(29));
 
         assertEquals("τριαντα",mattParker.convertIntToWord(30));
@@ -49,5 +51,14 @@ class MattParkerTest {
         assertEquals("ενενηντα",mattParker.convertIntToWord(90));
         assertEquals("ενενηνταπεντε",mattParker.convertIntToWord(95));
         assertEquals("ενενηνταεννια",mattParker.convertIntToWord(99));
+
+        assertEquals("εκατο", mattParker.convertIntToWord(100));
+        assertEquals("διακοσια", mattParker.convertIntToWord(200));
+        assertEquals("τριακοσια", mattParker.convertIntToWord(300));
+        assertEquals("τετρακοσια", mattParker.convertIntToWord(400));
+
+        assertEquals("τριακοσιαενενηνταπεντε",mattParker.convertIntToWord(395));
+
     }
+
 }

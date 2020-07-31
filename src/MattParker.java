@@ -3,18 +3,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO: 30/7/2020 Calculate shortest and longest Chain
 public class MattParker {
     private Map<Integer,String> numbers;
     public static final int LIMIT =  99;//TESTED UP TO THIS NUMBER
     private Map<Integer,Integer> startPointHopsToMap;
     private List<Integer> pathList;
-    private List<List<Integer>> poolOfPathsForEveryNumber;
+    private final List<List<Integer>> poolOfPathsForEveryNumber;
 
     public MattParker(){
         numbers = new HashMap<>();
         pathList = new ArrayList<>();
-        poolOfPathsForEveryNumber =new ArrayList<>();
+        poolOfPathsForEveryNumber = new ArrayList<>();
         //Manually create the Basic Numbers
         initializeMap();
 
@@ -46,7 +45,16 @@ public class MattParker {
         numbers.put(70, "εβδομηντα");
         numbers.put(80, "ογδοντα");
         numbers.put(90, "ενενηντα");
+
         numbers.put(100, "εκατο");
+        numbers.put(200, "διακοσια");
+        numbers.put(300, "τριακοσια");
+        numbers.put(400, "τετρακοσια");
+        numbers.put(500, "πεντακοσια");
+        numbers.put(600, "εξακοσια");
+        numbers.put(700, "εφτακοσια");
+        numbers.put(800, "οκτακοσια");
+        numbers.put(900, "εννιακοσια");
         //TODO ADD HUNDREDS AND THOUSANDS
     }
 
@@ -59,17 +67,45 @@ public class MattParker {
     public List<List<Integer>> getPoolOfPathsForEveryNumber() {return poolOfPathsForEveryNumber;}
 
     public String convertIntToWord(int number){
-        String tensString= "", unitsString = "";
-        int tensInt = 0;
-        int unitsInt = 0;
+        String tensString= "", unitsString = "", hundredsString = "";
+        int tensInt;
+        int unitsInt;
+        int hundredsInt;
 
         if(number < 12)
             return null;
+
+        if(number >= 100){
+            hundredsInt = number / 100;
+            number = number % 100;
+
+            switch (hundredsInt){
+                case 1:
+                    hundredsString = numbers.get(100);break;
+                case 2:
+                    hundredsString = numbers.get(200);break;
+                case 3:
+                    hundredsString = numbers.get(300);break;
+                case 4:
+                    hundredsString = numbers.get(400);break;
+                case 5:
+                    hundredsString = numbers.get(500);break;
+                case 6:
+                    hundredsString = numbers.get(600);break;
+                case 7:
+                    hundredsString = numbers.get(700);break;
+                case 8:
+                    hundredsString = numbers.get(800);break;
+                case 9:
+                    hundredsString = numbers.get(900);break;
+            }
+        }
 
         if(number > 12 && number < 100){
             tensInt = number / 10;
             unitsInt = number % 10;
 
+            //Simplify using unitsString = numbers.get(unitsInt); Use same scheme for the tens and hundreds !Fails due to NullPointerException
             switch (unitsInt){
                 case 1:
                     unitsString = numbers.get(1); break;
@@ -112,7 +148,9 @@ public class MattParker {
                     tensString = numbers.get(90); break;
             }
         }
-        return tensString.concat(unitsString);
+
+
+        return hundredsString.concat(tensString.concat(unitsString));
     }
 
     private int calculateHop(int pos){
@@ -120,20 +158,44 @@ public class MattParker {
         return string.length();
     }
 
-    public void calculateChain(int f) {
+    public void calculateChain() {
         int pos, hop;
-        //for(int i=1; i<MattParker.LIMIT; i++){
-            pos = f;
+        for(int i=1; i<MattParker.LIMIT; i++){
+            pos = i;
             hop = calculateHop(pos);
             do{
                 pathList.add(hop);
                 hop = calculateHop(hop);
             }while(!pathList.contains(hop));
-            System.out.println(pos + " " + "List: " + pathList);
-            poolOfPathsForEveryNumber.add(pathList);
+            poolOfPathsForEveryNumber.add(new ArrayList<>(pathList));
+            pathList.clear();
+
 //            startPointHopsToMap.put(pos,hop);
-        //}
+        }
     }
 
+    public List<Integer> calculateLongestChain() {
+        int max = 0;
+        List<Integer> maxChain = null;
+        for(List<Integer> list : poolOfPathsForEveryNumber){
+            if(list.size() > max){
+                max = list.size();
+                maxChain = list;
+            }
+        }
+        return maxChain;
+    }
+
+    public List<Integer> calculateShortestChain(){
+        int min = Integer.MAX_VALUE;
+        List<Integer> minChain = null;
+        for(List<Integer> list : poolOfPathsForEveryNumber){
+            if(list.size() < min){
+                min = list.size();
+                minChain = list;
+            }
+        }
+        return minChain;
+    }
 
 }
