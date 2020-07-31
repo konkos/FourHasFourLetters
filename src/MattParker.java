@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class MattParker {
     private Map<Integer,String> numbers;
-    public static final int LIMIT =  99;//TESTED UP TO THIS NUMBER
+    public static final int LIMIT =  100;//TESTED UP TO THIS NUMBER
     private Map<Integer,Integer> startPointHopsToMap;
     private List<Integer> pathList;
     private final List<List<Integer>> poolOfPathsForEveryNumber;
@@ -101,11 +101,11 @@ public class MattParker {
             }
         }
 
-        if(number > 12 && number < 100){
+        if(number > 12){
             tensInt = number / 10;
             unitsInt = number % 10;
 
-            //Simplify using unitsString = numbers.get(unitsInt); Use same scheme for the tens and hundreds !Fails due to NullPointerException
+            //Simplify using unitsString = numbers.get(unitsInt); Use same scheme for the tens and hundreds !Fails due to weird NullPointerException
             switch (unitsInt){
                 case 1:
                     unitsString = numbers.get(1); break;
@@ -177,12 +177,15 @@ public class MattParker {
     public List<Integer> calculateLongestChain() {
         int max = 0;
         List<Integer> maxChain = null;
+        int index = 0;
         for(List<Integer> list : poolOfPathsForEveryNumber){
             if(list.size() > max){
                 max = list.size();
                 maxChain = list;
+                index++;
             }
         }
+        System.out.println("Index of longest chain " + index);
         return maxChain;
     }
 

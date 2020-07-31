@@ -9,6 +9,10 @@ public class Main {
         parker.calculateChain();
         List<List<Integer>> poolOfPathsForEveryNumber = parker.getPoolOfPathsForEveryNumber();
         System.out.println(poolOfPathsForEveryNumber);
+        for(int i=0; i<poolOfPathsForEveryNumber.size(); i++) {
+            int j= i+1;
+            System.out.println(j + " " + poolOfPathsForEveryNumber.get(i));
+        }
 
         List<Integer> integers = parker.calculateLongestChain();
         System.out.println("LONGEST CHAIN: " + integers);
