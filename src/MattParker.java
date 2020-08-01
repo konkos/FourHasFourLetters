@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// TODO: 1/8/2020 add support for english
+// TODO: 1/8/2020 add support for numbers higher than 9999
 public class MattParker {
     private Map<Integer,String> numbers;
     public static final int LIMIT =  100;//TESTED UP TO THIS NUMBER
@@ -56,6 +58,9 @@ public class MattParker {
         numbers.put(800, "οκτακοσια");
         numbers.put(900, "εννιακοσια");
         //TODO ADD HUNDREDS AND THOUSANDS
+
+        numbers.put(1000, "χιλια");//for 1000->1999
+        numbers.put(-1000, "χιλιαδες");//suffix for 2000->9999
     }
 
     public Map<Integer, String> getMap(){
@@ -67,13 +72,42 @@ public class MattParker {
     public List<List<Integer>> getPoolOfPathsForEveryNumber() {return poolOfPathsForEveryNumber;}
 
     public String convertIntToWord(int number){
-        String tensString= "", unitsString = "", hundredsString = "";
-        int tensInt;
-        int unitsInt;
-        int hundredsInt;
+        String tensString= "", unitsString = "", hundredsString = "", thousandsString="";
+        int tensInt, unitsInt, hundredsInt, thousandsInt;
 
         if(number < 12)
             return null;
+
+        if(number >= 1000){
+            thousandsInt = number / 1000;
+            number = number % 1000;
+
+            /*e.g 2 xiliades ... => numbers.get(2) + "xiliades" + ...
+            * BROKEN*/
+            switch (thousandsInt){
+                case 1:
+                    thousandsString = numbers.get(1000);break;
+                case 2:
+                    thousandsString = numbers.get(2);break;
+                case 3:
+                    thousandsString = numbers.get(3);break;
+                case 4:
+                    thousandsString = numbers.get(4);break;
+                case 5:
+                    thousandsString = numbers.get(5);break;
+                case 6:
+                    thousandsString = numbers.get(6);break;
+                case 7:
+                    thousandsString = numbers.get(7);break;
+                case 8:
+                    thousandsString = numbers.get(8);break;
+                case 9:
+                    thousandsString = numbers.get(9);break;
+
+            }
+            if(thousandsInt!= 1)
+                thousandsString = thousandsString + " " + numbers.get(-1000);
+        }
 
         if(number >= 100){
             hundredsInt = number / 100;
@@ -106,6 +140,7 @@ public class MattParker {
             unitsInt = number % 10;
 
             //Simplify using unitsString = numbers.get(unitsInt); Use same scheme for the tens and hundreds !Fails due to weird NullPointerException
+
             switch (unitsInt){
                 case 1:
                     unitsString = numbers.get(1); break;
@@ -150,7 +185,7 @@ public class MattParker {
         }
 
 
-        return hundredsString.concat(tensString.concat(unitsString));
+        return thousandsString.concat(hundredsString.concat(tensString.concat(unitsString)));
     }
 
     private int calculateHop(int pos){

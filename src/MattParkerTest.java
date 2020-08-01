@@ -54,8 +54,14 @@ class MattParkerTest {
         assertEquals("διακοσια", mattParker.convertIntToWord(200));
         assertEquals("τριακοσια", mattParker.convertIntToWord(300));
         assertEquals("τετρακοσια", mattParker.convertIntToWord(400));
+        assertEquals("εννιακοσιαενενηνταεννια",mattParker.convertIntToWord(999));
 
         assertEquals("τριακοσιαενενηνταπεντε",mattParker.convertIntToWord(395));
+
+        assertEquals("χιλια", mattParker.convertIntToWord(1000));
+        assertEquals("δυο χιλιαδες", mattParker.convertIntToWord(2000));
+        assertEquals("χιλιατριακοσιαενενηνταπεντε", mattParker.convertIntToWord(1395));
+        assertEquals("εννιακοσιαενενηνταεννια χιλιαδες εννιακοσιαενενηνταεννια",mattParker.convertIntToWord(999999));
 
     }
 

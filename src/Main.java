@@ -3,7 +3,7 @@ import java.util.List;
 public class Main {
 
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws InterruptedException {
 
         MattParker parker = new MattParker();
         parker.calculateChain();
@@ -21,6 +21,8 @@ public class Main {
         List<Integer> integers2 = parker.calculateShortestChain();
         System.out.println("SHORTEST CHAIN: " + integers2);
         System.out.println("SIZE: " + integers2.size());
+
+        Thread.sleep(2000);
 
     }
 }
