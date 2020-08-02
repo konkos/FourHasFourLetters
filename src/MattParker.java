@@ -26,6 +26,7 @@ public class MattParker {
     }
 
     private void initializeMap() {
+        numbers.put(0, "");
         numbers.put(1, "ενα");
         numbers.put(2, "δυο");
         numbers.put(3, "τρια");
@@ -113,75 +114,17 @@ public class MattParker {
             hundredsInt = number / 100;
             number = number % 100;
 
-            switch (hundredsInt){
-                case 1:
-                    hundredsString = numbers.get(100);break;
-                case 2:
-                    hundredsString = numbers.get(200);break;
-                case 3:
-                    hundredsString = numbers.get(300);break;
-                case 4:
-                    hundredsString = numbers.get(400);break;
-                case 5:
-                    hundredsString = numbers.get(500);break;
-                case 6:
-                    hundredsString = numbers.get(600);break;
-                case 7:
-                    hundredsString = numbers.get(700);break;
-                case 8:
-                    hundredsString = numbers.get(800);break;
-                case 9:
-                    hundredsString = numbers.get(900);break;
-            }
+            hundredsString = numbers.get(hundredsInt * 100);
         }
 
         if(number > 12){
             tensInt = number / 10;
             unitsInt = number % 10;
 
-            //Simplify using unitsString = numbers.get(unitsInt); Use same scheme for the tens and hundreds !Fails due to weird NullPointerException
+            unitsString = numbers.get(unitsInt);
 
-            switch (unitsInt){
-                case 1:
-                    unitsString = numbers.get(1); break;
-                case 2:
-                    unitsString = numbers.get(2); break;
-                case 3:
-                    unitsString = numbers.get(3); break;
-                case 4:
-                    unitsString = numbers.get(4); break;
-                case 5:
-                    unitsString = numbers.get(5); break;
-                case 6:
-                    unitsString = numbers.get(6); break;
-                case 7:
-                    unitsString = numbers.get(7); break;
-                case 8:
-                    unitsString = numbers.get(8); break;
-                case 9:
-                    unitsString = numbers.get(9); break;
-            }
-
-            switch (tensInt){
-                case 1:
-                    tensString = numbers.get(10); break;
-                case 2:
-                    tensString = numbers.get(20); break;
-                case 3:
-                    tensString = numbers.get(30); break;
-                case 4:
-                    tensString = numbers.get(40); break;
-                case 5:
-                    tensString = numbers.get(50); break;
-                case 6:
-                    tensString = numbers.get(60); break;
-                case 7:
-                    tensString = numbers.get(70); break;
-                case 8:
-                    tensString = numbers.get(80); break;
-                case 9:
-                    tensString = numbers.get(90); break;
-            }
+            //Simplify using tensString = numbers.get(tensInt); !Fails due to weird NullPointerException -- 0 is not set
+            tensString = numbers.get(tensInt * 10);
         }
 
 

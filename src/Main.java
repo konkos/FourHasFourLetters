@@ -1,3 +1,4 @@
+import java.net.Socket;
 import java.util.List;
 
 public class Main {
@@ -21,8 +22,6 @@ public class Main {
         List<Integer> integers2 = parker.calculateShortestChain();
         System.out.println("SHORTEST CHAIN: " + integers2);
         System.out.println("SIZE: " + integers2.size());
-
-        Thread.sleep(2000);
 
     }
 }

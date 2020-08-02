@@ -61,6 +61,7 @@ class MattParkerTest {
         assertEquals("χιλια", mattParker.convertIntToWord(1000));
         assertEquals("δυο χιλιαδες", mattParker.convertIntToWord(2000));
         assertEquals("χιλιατριακοσιαενενηνταπεντε", mattParker.convertIntToWord(1395));
+        assertEquals("εκατο χιλιαδες",mattParker.convertIntToWord(100000));
         assertEquals("εννιακοσιαενενηνταεννια χιλιαδες εννιακοσιαενενηνταεννια",mattParker.convertIntToWord(999999));
 
     }
